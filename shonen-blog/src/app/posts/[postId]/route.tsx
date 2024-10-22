@@ -10,12 +10,11 @@ export async function GET(request: Request) {
  
   try {
     if (!postId) throw new Error('PostId required');
-    await sql`INSERT INTO Post (postId) VALUES (${postId});`;
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }
  
-  const posts = await sql`SELECT * FROM Posts;`;
+  const posts = await sql`SELECT * FROM Posts WHERE postId == ${postId};`;
   return NextResponse.json({ posts }, { status: 200 });
 
   // Import into [postId]/page.tsx and display info 
