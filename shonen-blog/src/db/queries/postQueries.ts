@@ -1,5 +1,6 @@
 import type { Post } from "prisma/prisma-client";
-import prisma from "../lib/prisma";
+//import prisma from "../lib/prisma";
+import { prisma } from "@/db";
 import { notFound } from "next/navigation";
 
 export async function getPosts(): Promise<Post[]> {
@@ -10,7 +11,7 @@ export async function getPosts(): Promise<Post[]> {
       },
     },
   });
-  
+
   return posts;
 }
 export async function getPostbyId(postId: string): Promise<Post | null> {

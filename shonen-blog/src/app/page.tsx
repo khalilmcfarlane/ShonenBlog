@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import { getPosts } from "../../prisma/queries/postQueries";
+import { getPosts } from "@/db/queries/postQueries";
 
 
 export default async function Home() {
@@ -18,7 +18,13 @@ export default async function Home() {
           priority
         />
        <div>
-       
+        {posts.map(post => {
+          return <div key={post.id}>
+            <h1>{post.title}</h1>
+            <h2>{post.author.name}</h2>
+            <p>{post.content}</p>
+            </div>
+        })}
        </div>
       </main>
     </div>

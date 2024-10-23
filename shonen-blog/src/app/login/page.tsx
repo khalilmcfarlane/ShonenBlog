@@ -1,5 +1,5 @@
 "use client";
-
+/*
 import {
     TextInput,
     PasswordInput,
@@ -12,10 +12,13 @@ import {
     Group,
     Button,
   } from '@mantine/core';
-import classes from './AuthenticationTitle.module.css';
+   */
+// import classes from './AuthenticationTitle.module.css';
 
 export default function LoginPage() {
     return (
+      <h1>Login page</h1>
+      /*
     <Container size={420} my={40}>
       <Title ta="center" className={classes.title}>
         Welcome back!
@@ -41,5 +44,6 @@ export default function LoginPage() {
         </Button>
       </Paper>
     </Container>
+    */
   );
 }
