@@ -1,9 +1,6 @@
-interface Props {
-    params: {
-        postId: string;
-    }
-}
-export default function PostDetails({ params }: Props) {
-  return <h1>Details about post {params.postId}</h1>;
+import prisma from "../../../../prisma/lib/prisma";
+
+export function getPost() {
+  return <h1>Post</h1>
 }
 
