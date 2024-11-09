@@ -5,6 +5,11 @@ import { notFound } from "next/navigation";
 
 export async function getPosts(): Promise<Post[]> {
   const posts = await prisma.post.findMany({
+    orderBy: [
+      {
+        updatedAt: "desc",
+      },
+    ],
     include: {
       author: {
         select: { name: true },
