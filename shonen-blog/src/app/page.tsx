@@ -18,19 +18,6 @@ export default async function Home() {
         <h1>Recent Posts</h1>
         <div>
           <PostGrid posts={posts} />
-          {/*
-          {posts.map((post) => {
-            return (
-              <div key={post.id}>
-                <Link key={post.id} href={`/posts/${post.id}`} className="">
-                  <h2>{post.title}</h2>
-                </Link>
-                <h3>{post.author.name}</h3>
-                <p>{post.content}</p>
-              </div>
-            );
-          })}
-          */}
         </div>
       </div>
     </main>
