@@ -14,7 +14,7 @@ interface PostsProps {
   posts: Post[];
 }
 
-export function PostGrid({ posts }: PostsProps) {
+export default function PostGrid({ posts }: PostsProps) {
   const cards = posts.map((post) => (
     <Card
       key={post.id}
