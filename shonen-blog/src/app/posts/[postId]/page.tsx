@@ -1,5 +1,5 @@
 //import { prisma } from "@/db"
-import { getPostbyId } from "@/db/queries/postQueries";
+import { getPostbyId } from "@/db/queries/postSqlQueries";
 
 interface Props {
   params: {

@@ -1,7 +1,6 @@
 import {
   SimpleGrid,
   Card,
-  Image,
   Text,
   Container,
   AspectRatio,
@@ -16,22 +15,22 @@ interface PostsProps {
 
 export function PostGrid({ posts }: PostsProps) {
   const cards = posts.map((post) => (
-    <Card
-      key={post.id}
-      p="md"
-      radius="md"
-      component="a"
-      href="#"
-      className={classes.card}
-    >
-      <Text className={classes.title} mt={5}>
-        <Link key={post.id} href={`/posts/${post.id}`} className="">
+    <Link key={post.id} href={`/posts/${post.id}`} passHref>
+      <Card
+        p="md"
+        radius="md"
+        component="a"
+        className={classes.card}
+      >
+        <Text className={classes.title} mt={5}>
           <h1>{post.title}</h1>
-        </Link>
-        <h3>{post?.author?.name}</h3>
-        <p>{post.content}</p>
-      </Text>
-    </Card>
+        </Text>
+        <Text className={classes.author}>
+          <h3>{post?.author?.name}</h3>
+        </Text>
+        <Text className={classes.content}>{post.content}</Text>
+      </Card>
+    </Link>
   ));
 
   return (

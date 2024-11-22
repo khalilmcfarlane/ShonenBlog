@@ -1,5 +1,11 @@
+import { PostForm } from "@/app/components/PostForm";
+import { Title } from "@mantine/core";
+
 export default function CreatePost() {
-    return (
-        <h1>Create post</h1>
-    )
+  return (
+    <div>
+      <Title>Create Post</Title>
+      <PostForm />
+    </div>
+  );
 }

@@ -38,3 +38,7 @@ next-env.d.ts
 .env
 .vercel
 schema.prisma
+
+/migrations
+# Any patch files
+*.patch

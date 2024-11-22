@@ -1,5 +1,4 @@
 import type { Post } from "prisma/prisma-client";
-//import prisma from "../lib/prisma";
 import { prisma } from "@/db";
 import { notFound } from "next/navigation";
 
