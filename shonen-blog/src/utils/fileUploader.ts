@@ -12,13 +12,17 @@ const s3Config = new S3Client({
 export async function uploadImagetoS3(file: File) {
   // Create Amazon S3 bucket config
   // Call this function in ImageUploader.tsx
+
+  const arrayBuffer = await file.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+
   const bucketName = process.env.AWS_S3_BUCKET_NAME!;
   const key = `${randomUUID()}-${file.name}`;
 
   const command = new PutObjectCommand({
     Bucket: bucketName,
     Key: key,
-    Body: file,
+    Body: buffer,
     ContentType: file.type,
   });
 
