@@ -11,6 +11,7 @@ export default function SignupForm() {
     mode: "uncontrolled",
     initialValues: {
       name: "",
+      username: "",
       password: "",
       email: "",
       image: null as File | null,
@@ -18,12 +19,21 @@ export default function SignupForm() {
 
     validate: {
       name: (value) => (value.length > 0 ? null : "Name is required"),
+      username: (value) => {
+        if (value.includes(" ")) {
+          return "Username cannot contain spaces";
+        }
+        if (value.length < 4) {
+          return "Username must be at least 4 characters long";
+        }
+        return null;
+      },
       password: (value) =>
         value.length > 5 ? null : "Password of at least length 6 required",
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
     },
   });
-
+  /*
   type SignupFormValues = {
     name: string;
     password: string;
@@ -31,6 +41,7 @@ export default function SignupForm() {
     image?: File;
     // image
   };
+  */
 
   const router = useRouter();
 
@@ -40,6 +51,7 @@ export default function SignupForm() {
     try {
       const formData = new FormData();
       formData.append("name", values.name);
+      formData.append("username", values.username);
       formData.append("email", values.email);
       formData.append("password", values.password);
       if (values.image) {
@@ -56,7 +68,7 @@ export default function SignupForm() {
       if (error.response?.status === 409) {
         notifications.show({
           title: "Signup Failed!",
-          message: "A user with this email already exists",
+          message: "A user with this email or username already exists",
           color: "red",
         });
       } else {
@@ -77,6 +89,14 @@ export default function SignupForm() {
         placeholder="Your name"
         key={form.key("name")}
         {...form.getInputProps("name")}
+      />
+
+      <TextInput
+        withAsterisk
+        label="Username"
+        placeholder="Your username"
+        key={form.key("username")}
+        {...form.getInputProps("username")}
       />
 
       <TextInput

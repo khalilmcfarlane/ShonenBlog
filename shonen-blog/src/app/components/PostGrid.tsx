@@ -26,7 +26,7 @@ export function PostGrid({ posts }: PostsProps) {
           <h1>{post.title}</h1>
         </Text>
         <Text className={classes.author}>
-          <h3>{post?.author?.name}</h3>
+          <h3>{post?.author?.username}</h3>
         </Text>
         <Text className={classes.content}>{post.content}</Text>
       </Card>

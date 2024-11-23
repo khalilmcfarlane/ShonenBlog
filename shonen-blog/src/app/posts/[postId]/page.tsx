@@ -12,7 +12,7 @@ export default async function Posts({ params }: Props) {
   return (
     <div>
       <h1>{post?.title}</h1>
-      <h2>{post?.author?.name}</h2>
+      <h2>{post?.author?.username}</h2>
       <p>{post?.content}</p>
     </div>
   );

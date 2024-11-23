@@ -4,9 +4,9 @@ import { hashPassword } from "@/utils/password";
 import { uploadImagetoS3 } from "@/utils/fileUploader";
 
 export async function POST(req: Request) {
-  // If email in db, return an error.
   const formData = await req.formData();
   const name = formData.get("name") as string;
+  const username = formData.get("username") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   // do I need to check for an error below?
@@ -23,13 +23,17 @@ export async function POST(req: Request) {
 
   try {
     // If existing user exists, don't create again
-    const existingUser = await prisma.user.findUnique({
+    const existingEmail = await prisma.user.findUnique({
       where: { email },
     });
 
-    if (existingUser) {
+    const existingUser = await prisma.user.findUnique({
+      where: { username },
+    });
+
+    if (existingEmail || existingUser) {
       return NextResponse.json(
-        { error: "A user with this email already exists" },
+        { error: "A user with this email/username already exists" },
         { status: 409 }
       );
     }
@@ -42,13 +46,14 @@ export async function POST(req: Request) {
     const user = await prisma.user.create({
       data: {
         name: name,
+        username: username,
         email: email,
         password: hashedPassword,
         image: imageUrl,
       },
     });
 
-    console.log(`Created new user ${user.name}`);
+    console.log(`Created new user ${user.username}`);
 
     return NextResponse.json(user, { status: 201 });
   } catch (error) {

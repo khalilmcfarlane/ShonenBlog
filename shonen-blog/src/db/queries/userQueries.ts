@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 export async function getUserFromUsername(username: string): Promise<User | null> {
     const user = await prisma.user.findUnique({
         where: {
-            name: username,
+            username: username,
         },
         include: {
         posts: {

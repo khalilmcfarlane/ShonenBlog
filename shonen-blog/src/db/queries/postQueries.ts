@@ -12,7 +12,7 @@ export async function getPosts(): Promise<Post[]> {
     ],
     include: {
       author: {
-        select: { name: true },
+        select: { username: true },
       },
     },
   });
@@ -26,7 +26,7 @@ export async function getPostbyId(postId: string): Promise<Post | null> {
     },
     include: {
       author: {
-        select: { name: true },
+        select: { username: true },
       },
     },
   });

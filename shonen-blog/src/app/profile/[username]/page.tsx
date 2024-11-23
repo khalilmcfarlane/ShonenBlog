@@ -1,5 +1,4 @@
 import { getAllPostsFromUsername } from "@/db/queries/userQueries";
-import styles from "./page.module.css";
 import { PostGrid } from "@/app/components/PostGrid";
 
 interface Props {
@@ -11,7 +10,7 @@ export default async function ProfileDetails({ params }: Props) {
   const posts = await getAllPostsFromUsername(params.username);
   return (
     <div>
-      <h1>All of {params.username} posts</h1>
+      <h1>All of your posts</h1>
       <div>
         <PostGrid posts={posts} />
       </div>
