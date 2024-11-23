@@ -17,6 +17,9 @@ export default async function Home() {
         <Link href="/signup" className="Signup">
           Sign Up
         </Link>
+        <Link href="/login" className="Login">
+          Login
+        </Link>
       </div>
       <div className={styles.page}>
         <h1>Recent Posts</h1>

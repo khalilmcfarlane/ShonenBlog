@@ -1,4 +1,4 @@
-"use client";
+import LoginForm from "../components/LoginForm";
 /*
 import {
     TextInput,
@@ -16,9 +16,9 @@ import {
 // import classes from './AuthenticationTitle.module.css';
 
 export default function LoginPage() {
-    return (
-      <h1>Login page</h1>
-      /*
+  return (
+    <LoginForm />
+    /*
     <Container size={420} my={40}>
       <Title ta="center" className={classes.title}>
         Welcome back!

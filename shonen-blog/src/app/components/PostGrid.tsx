@@ -1,10 +1,4 @@
-import {
-  SimpleGrid,
-  Card,
-  Text,
-  Container,
-  AspectRatio,
-} from "@mantine/core";
+import { SimpleGrid, Card, Text, Container, AspectRatio } from "@mantine/core";
 import type { Post } from "prisma/prisma-client";
 import classes from "../css/PostGrid.module.css";
 import Link from "next/link";
@@ -15,13 +9,13 @@ interface PostsProps {
 
 export function PostGrid({ posts }: PostsProps) {
   const cards = posts.map((post) => (
-    <Link key={post.id} href={`/posts/${post.id}`} passHref>
-      <Card
-        p="md"
-        radius="md"
-        component="a"
-        className={classes.card}
-      >
+    <Link
+      key={post.id}
+      href={`/posts/${post.id}`}
+      style={{ textDecoration: "none" }}
+      passHref
+    >
+      <Card p="md" radius="md" component="a" className={classes.card}>
         <Text className={classes.title} mt={5}>
           <h1>{post.title}</h1>
         </Text>
