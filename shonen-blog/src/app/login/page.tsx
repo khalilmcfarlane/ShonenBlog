@@ -1,3 +1,4 @@
+import { NavbarSimple } from "../components/Navbar";
 import LoginForm from "../components/LoginForm";
 /*
 import {
@@ -17,7 +18,10 @@ import {
 
 export default function LoginPage() {
   return (
-    <LoginForm />
+    <>
+      <NavbarSimple />
+      <LoginForm />
+    </>
     /*
     <Container size={420} my={40}>
       <Title ta="center" className={classes.title}>
