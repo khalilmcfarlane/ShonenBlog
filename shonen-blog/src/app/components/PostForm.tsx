@@ -6,17 +6,8 @@ import { useForm } from "@mantine/form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-// Need to find way to associate user with post
-// OnSubmit, add Post to user.Posts
-type FormValues = {
-  title: string;
-  content: string;
-};
-
-const router = useRouter();
-
 export function PostForm() {
-  const form = useForm<FormValues>({
+  const form = useForm({
     mode: "uncontrolled",
     initialValues: {
       title: "",
@@ -30,18 +21,19 @@ export function PostForm() {
     },
   });
 
-  const submitData = async (values: FormValues) => {
+  const router = useRouter();
+
+  const submitData = async (values: typeof form.values) => {
     //e.preventDefault();
+    const formData = new FormData();
+    formData.append("username", values.title);
+    formData.append("password", values.content);
 
     try {
       //const body = { title, content };
-      const response = await axios.post("/api/post", values);
-
-      /*
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      })
-      */
+      const response = await axios.post("/api/post", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       if (response.status === 201) {
         // Eventually want to set up redirect to posts/${id}

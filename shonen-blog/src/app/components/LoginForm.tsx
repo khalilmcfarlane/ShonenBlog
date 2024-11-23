@@ -26,8 +26,8 @@ export default function LoginForm() {
         headers: { "Content-Type": "multipart/form-data" },
       });
       if (response.status == 200) {
-        // Idea is to eventually push to user profile
-        router.push("/");
+        // Go to User profile
+        router.push(`/profile/${values.username}`);
       }
     } catch (error: any) {
       if (error.response?.status === 404) {
