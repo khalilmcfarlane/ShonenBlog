@@ -1,3 +1,5 @@
+import layoutStyles from "../css/Layout.module.css";
+
 import { NavbarSimple } from "../components/Navbar";
 import LoginForm from "../components/LoginForm";
 /*
@@ -18,11 +20,13 @@ import {
 
 export default function LoginPage() {
   return (
-    <>
+    <div className={layoutStyles.container}>
       <NavbarSimple />
-      <h1>Login</h1>
-      <LoginForm />
-    </>
+      <div className={layoutStyles.mainContent}>
+        <h1>Login</h1>
+        <LoginForm />
+      </div>
+    </div>
     /*
     <Container size={420} my={40}>
       <Title ta="center" className={classes.title}>

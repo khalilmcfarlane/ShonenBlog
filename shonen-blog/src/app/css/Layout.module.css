@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .navbar {
+    width: 250px;
+    padding: 8px;
+  }
+  
+  .mainContent {
+    flex: 1;
+    padding: 16px;
+  }
+  
