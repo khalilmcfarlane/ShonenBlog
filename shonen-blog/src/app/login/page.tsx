@@ -20,6 +20,7 @@ export default function LoginPage() {
   return (
     <>
       <NavbarSimple />
+      <h1>Login</h1>
       <LoginForm />
     </>
     /*

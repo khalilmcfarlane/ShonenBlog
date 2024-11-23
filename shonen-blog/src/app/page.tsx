@@ -12,7 +12,8 @@ export default async function Home() {
     <main className={styles.main}>
       <NavbarSimple />
       <div className={styles.page}>
-        <h1>Recent Posts</h1>
+        <h1>ShonenBlog</h1>
+        <h2>Recent Posts</h2>
         <div>
           <PostGrid posts={posts} />
         </div>

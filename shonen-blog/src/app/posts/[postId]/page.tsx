@@ -14,6 +14,7 @@ export default async function Posts({ params }: Props) {
     <>
       <NavbarSimple />
       <div>
+        <h1>Your posts</h1>
         <h1>{post?.title}</h1>
         <h2>{post?.author?.username}</h2>
         <p>{post?.content}</p>

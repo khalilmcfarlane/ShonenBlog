@@ -5,6 +5,7 @@ export default function SignupPage() {
   return (
     <>
       <NavbarSimple />
+      <h1>Signup</h1>
       <SignupForm />
     </>
   );
