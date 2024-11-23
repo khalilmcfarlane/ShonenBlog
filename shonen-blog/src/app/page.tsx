@@ -1,7 +1,8 @@
-import Image from "next/image";
+//import Image from "next/image";
 import styles from "./page.module.css";
 import { getPosts } from "@/db/queries/postSqlQueries";
 import { PostGrid } from "./components/PostGrid";
+import { NavbarSimple } from "./components/Navbar";
 import Link from "next/link";
 
 export default async function Home() {
@@ -11,6 +12,7 @@ export default async function Home() {
   return (
     <main className={styles.main}>
       <div>
+        <NavbarSimple />
         <Link href="posts/create" className="CreatePost">
           Create Post
         </Link>
