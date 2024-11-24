@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/db";
+import { setSession } from "@/utils/sessionManagement";
 import bcrypt from "bcrypt";
 
 export async function POST(req: Request) {
@@ -39,6 +40,8 @@ export async function POST(req: Request) {
     // if this is the correct password
     if (isValidPassword) {
       console.log(`Logging into ${existingUser.username}.`);
+      // Set the user session
+      setSession(existingUser);
       return NextResponse.json({ status: 200 });
     }
   } catch (error) {

@@ -1,7 +1,10 @@
+//import "server-only";
+
 import { NextResponse } from "next/server";
 import { prisma } from "@/db";
 import { hashPassword } from "@/utils/password";
 import { uploadImagetoS3 } from "@/utils/fileUploader";
+import { setSession } from "@/utils/sessionManagement";
 
 export async function POST(req: Request) {
   const formData = await req.formData();
@@ -54,7 +57,8 @@ export async function POST(req: Request) {
     });
 
     console.log(`Created new user ${user.username}`);
-
+    // Set user session
+    setSession(user);
     return NextResponse.json(user, { status: 201 });
   } catch (error) {
     console.error("Error creating new user", error);
