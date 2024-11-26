@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/db";
 import { setSession } from "@/utils/sessionManagement";
 import bcrypt from "bcrypt";
-import { cookies } from "next/headers";
 
 export async function POST(req: Request) {
   const formData = await req.formData();
@@ -43,7 +42,9 @@ export async function POST(req: Request) {
       console.log(`Logging into ${existingUser.username}.`);
       // Set the user session
       await setSession(existingUser);
-      console.log("Cookies after setting session", cookies().getAll());
+      // Log username for testing purposes
+      //const session = await getSession();
+      //console.log("Cookies after setting session:", session?.user?.username);
       return NextResponse.json({ status: 200 });
     }
   } catch (error) {

@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { Button, Group, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { notifications } from "@mantine/notifications";
 
 export function PostForm() {
   const form = useForm({
@@ -25,13 +25,14 @@ export function PostForm() {
 
   const submitData = async (values: typeof form.values) => {
     //e.preventDefault();
-    const formData = new FormData();
-    formData.append("username", values.title);
-    formData.append("password", values.content);
 
     try {
       //const body = { title, content };
-      const response = await axios.post("/api/post", formData, {
+      const formData = new FormData();
+      formData.append("title", values.title);
+      formData.append("content", values.content);
+
+      const response = await axios.post("/api/posts/create", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
@@ -41,32 +42,57 @@ export function PostForm() {
         //router.push(`/posts/${id}`);
         router.push("/");
       }
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error.response?.status === 401) {
+        notifications.show({
+          title: "Failed to create post",
+          message: "Please login before creating a post",
+          color: "red",
+        });
+      } else if (error.response?.status === 400) {
+        notifications.show({
+          title: "Failed to create post",
+          message: "A title and content are required!",
+          color: "red",
+        });
+      } else if (error.response?.status === 404) {
+        notifications.show({
+          title: "Failed to create post",
+          message: "User not found",
+          color: "red",
+        });
+      } else {
+        notifications.show({
+          title: "Post creation Error",
+          message: "Something went wrong. Please try again.",
+          color: "red",
+        });
+      }
+
       console.error(error);
     }
   };
 
   return (
-    <>
-      <form onSubmit={form.onSubmit(submitData)}>
-        <TextInput
-          withAsterisk
-          label="Title"
-          placeholder="Enter post title"
-          key={form.key("title")}
-          {...form.getInputProps("title")}
-          required
-        />
-        <TextInput
-          label="Content"
-          placeholder="Enter post content..."
-          key={form.key("content")}
-          {...form.getInputProps("content")}
-        />
-      </form>
+    <form onSubmit={form.onSubmit(submitData)}>
+      <TextInput
+        withAsterisk
+        label="Title"
+        placeholder="Enter post title"
+        key={form.key("title")}
+        {...form.getInputProps("title")}
+        required
+      />
+      <TextInput
+        label="Content"
+        placeholder="Enter post content..."
+        key={form.key("content")}
+        {...form.getInputProps("content")}
+      />
       <Group justify="flex-end" mt={"md"}>
         <Button type="submit">Submit</Button>
       </Group>
-    </>
+    </form>
   );
 }

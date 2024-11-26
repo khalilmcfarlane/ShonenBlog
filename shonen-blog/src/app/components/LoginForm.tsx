@@ -25,6 +25,7 @@ export default function LoginForm() {
       const response = await axios.post("/api/login", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+      
       if (response.status == 200) {
         // Go to User profile
         // profile/${values.username
