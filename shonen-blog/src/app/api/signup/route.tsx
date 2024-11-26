@@ -3,8 +3,9 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/db";
 import { hashPassword } from "@/utils/password";
-import { uploadImagetoS3 } from "@/utils/fileUploader";
+import { uploadImageToS3 } from "@/utils/fileUploader";
 import { setSession } from "@/utils/sessionManagement";
+import { cookies } from "next/headers";
 
 export async function POST(req: Request) {
   const formData = await req.formData();
@@ -43,7 +44,7 @@ export async function POST(req: Request) {
     // Hash password
     const hashedPassword = await hashPassword(password);
     // Upload image to S3 bucket
-    const imageUrl = image ? await uploadImagetoS3(image) : null;
+    const imageUrl = image ? await uploadImageToS3(image) : null;
 
     // Create user
     const user = await prisma.user.create({
@@ -58,7 +59,8 @@ export async function POST(req: Request) {
 
     console.log(`Created new user ${user.username}`);
     // Set user session
-    setSession(user);
+    await setSession(user);
+    console.log("Cookies after setting session", cookies().getAll());
     return NextResponse.json(user, { status: 201 });
   } catch (error) {
     console.error("Error creating new user", error);

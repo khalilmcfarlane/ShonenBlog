@@ -2,7 +2,6 @@ import type { User } from "@prisma/client";
 
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
 
 const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
@@ -12,14 +11,14 @@ export async function encrypt(payload: any) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("10 sec from now")
+    .setExpirationTime(Date.now() + 10 * 60 * 1000) // "10 sec from now"
     .sign(encodedKey);
 }
 // Used for login and signup
 export async function setSession(user: User) {
-  const expires = new Date(Date.now() + 10 * 1000);
+  const expires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
   const session = await encrypt({ user, expires });
-  cookies().set("session", session, { expires, httpOnly: true });
+  cookies().set("session", session, { expires, httpOnly: true, path: "/" });
 }
 
 export async function decrypt(input: string) {
@@ -34,7 +33,8 @@ export async function decrypt(input: string) {
 }
 
 export async function logoutSession() {
-  cookies().set("session", "", { expires: new Date() });
+  cookies().delete("session");
+  // alternatively can do cookies().set("session", "")
 }
 
 export async function getSession() {
@@ -45,7 +45,7 @@ export async function getSession() {
   return await decrypt(session);
 }
 
-export async function updateSession(req: NextRequest) {
+export async function updateSession() {
   const session = cookies().get("session")?.value;
   if (!session) {
     return;
@@ -54,15 +54,14 @@ export async function updateSession(req: NextRequest) {
   // Refresh session
   const parsed = await decrypt(session);
   const expires = new Date(Date.now() + 10 + 1000);
-  
-  const res = NextResponse.next();
-  res.cookies.set({
+
+  //const res = NextResponse.next();
+  cookies().set({
     name: "session",
     value: await encrypt(parsed),
     httpOnly: true,
-    expires: expires
+    expires: expires,
   });
-  return res;
 }
 
 export async function deleteSession() {

@@ -1,6 +1,7 @@
 // Taken from Mantine's open Source: https://ui.mantine.dev/category/navbars/
 "use client";
 
+import axios from "axios";
 import { useState } from "react";
 import {
   IconMessageShare,
@@ -9,7 +10,6 @@ import {
   IconUser,
   IconLogin,
   IconLogout,
-  IconSwitchHorizontal,
 } from "@tabler/icons-react";
 import { Code, Group } from "@mantine/core";
 import Link from "next/link";
@@ -24,6 +24,22 @@ const data = [
 ];
 
 export function NavbarSimple() {
+  //const router = useRouter();
+
+  const logout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post("/api/logout");
+      console.log(response.data);
+      //redirect('/login')
+      //router.push("/login"); // Want to make it home page but just for tests
+      window.location.reload();
+    } catch (error) {
+      console.error("Failed to logout", error);
+    }
+  };
+
   const [active, setActive] = useState("Home");
 
   const links = data.map((item) => (
@@ -50,23 +66,10 @@ export function NavbarSimple() {
       </div>
 
       <div className={classes.footer}>
-        <a
-          href="#"
-          className={classes.link}
-          onClick={(event) => event.preventDefault()}
-        >
-          <IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
-          <span>Change account</span>
-        </a>
-
-        <a
-          href="#"
-          className={classes.link}
-          onClick={(event) => event.preventDefault()}
-        >
+        <Link href="#" className={classes.link} onClick={logout}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>
-        </a>
+        </Link>
       </div>
     </nav>
   );

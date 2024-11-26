@@ -27,7 +27,8 @@ export default function LoginForm() {
       });
       if (response.status == 200) {
         // Go to User profile
-        router.push(`/profile/${values.username}`);
+        // profile/${values.username
+        router.push(`/`);
       }
     } catch (error: any) {
       if (error.response?.status === 404) {

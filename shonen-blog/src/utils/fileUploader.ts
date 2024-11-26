@@ -9,7 +9,7 @@ const s3Config = new S3Client({
   },
 });
 
-export async function uploadImagetoS3(file: File) {
+export async function uploadImageToS3(file: File) {
   // Create Amazon S3 bucket config
   // Call this function in ImageUploader.tsx
 
