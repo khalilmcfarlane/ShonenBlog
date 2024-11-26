@@ -4,6 +4,8 @@ import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
+import { NavbarSimple } from "./components/Navbar";
+import layoutStyles from "./css/Layout.module.css";
 
 export const metadata = {
   title: "My Mantine app",
@@ -23,7 +25,10 @@ export default function RootLayout({
       <body>
         <MantineProvider defaultColorScheme="light">
           <Notifications position="top-right" />
-          {children}
+          <div className={layoutStyles.container}>
+            <NavbarSimple />
+            {children}
+          </div>
         </MantineProvider>
       </body>
     </html>
