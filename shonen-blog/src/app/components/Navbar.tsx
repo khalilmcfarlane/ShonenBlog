@@ -24,7 +24,6 @@ const data = [
 ];
 
 export function NavbarSimple() {
-  //const router = useRouter();
 
   const logout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
