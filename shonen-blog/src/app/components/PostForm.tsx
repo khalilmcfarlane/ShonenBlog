@@ -1,17 +1,34 @@
 "use client";
 
-import { Button, Group, TextInput } from "@mantine/core";
-import { useForm } from "@mantine/form";
 import axios from "axios";
+import { Button, Group, TextInput, FileInput } from "@mantine/core";
+import { IconPhoto } from "@tabler/icons-react";
+import { rem } from "@mantine/core";
+
+import { useForm } from "@mantine/form";
 import { useRouter } from "next/navigation";
 import { notifications } from "@mantine/notifications";
 
 export function PostForm() {
+  /*
+  const [file, setFile] = useState("");
+
+  const handleFile = (input_file: File | null) => {
+    if (input_file) {
+      // Take in file and convert to a string
+      const imageUrl = URL.createObjectURL(input_file);
+      setFile(imageUrl);
+      console.log(file);
+    }
+  }
+*/
+
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
       title: "",
       content: "",
+      image: null as File | null,
     },
 
     validate: {
@@ -23,14 +40,22 @@ export function PostForm() {
 
   const router = useRouter();
 
+  const icon = (
+    <IconPhoto style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
+  );
+
   const submitData = async (values: typeof form.values) => {
     //e.preventDefault();
 
     try {
       //const body = { title, content };
       const formData = new FormData();
+      //form.setFieldValue("content", values.content) try using mantine's form method
       formData.append("title", values.title);
       formData.append("content", values.content);
+      if (values.image) {
+        formData.append("image", values.image);
+      }
 
       const response = await axios.post("/api/posts/create", formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -90,6 +115,17 @@ export function PostForm() {
         key={form.key("content")}
         {...form.getInputProps("content")}
       />
+
+      <FileInput
+        withAsterisk
+        leftSection={icon}
+        accept="image/*"
+        label="Image"
+        key={form.key("image")}
+        {...form.getInputProps("image")}
+        placeholder="drop your photo"
+      />
+
       <Group justify="flex-end" mt={"md"}>
         <Button type="submit">Submit</Button>
       </Group>
