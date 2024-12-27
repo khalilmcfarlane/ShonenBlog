@@ -15,6 +15,7 @@ import { Code, Group } from "@mantine/core";
 import Link from "next/link";
 import classes from "../css/NavbarSimple.module.css";
 import { JWTPayload } from "jose";
+import { User } from "@prisma/client";
 
 export function NavbarSimple() {
   const logout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -66,7 +67,8 @@ export function NavbarSimple() {
     })
     .map((item) => {
       if (session && item.label === "User Account") {
-        return { ...item, link: `/profile/${session.user?.username}` };
+        const currentUser: User = session.user as User;
+        return { ...item, link: `/profile/${currentUser.username}` };
       }
       return item;
     });

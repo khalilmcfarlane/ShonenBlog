@@ -1,6 +1,7 @@
 //import { getSession } from "next-auth/react";
 import { NextResponse } from "next/server";
 import { prisma } from "@/db";
+import type { User } from "@prisma/client";
 import { getSession } from "@/utils/sessionManagement";
 import { uploadImageToS3 } from "@/utils/fileUploader";
 
@@ -25,8 +26,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
-  const username = session?.user?.username; // Adjust based on session structure
+  const currentUser: User = session.user as User;
+  const username = currentUser.username; // Adjust based on session structure
   if (!username) {
     return NextResponse.json({ error: "Invalid session" }, { status: 400 });
   }
@@ -63,4 +64,3 @@ export async function POST(req: Request) {
     );
   }
 }
-
