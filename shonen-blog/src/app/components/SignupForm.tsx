@@ -64,19 +64,21 @@ export default function SignupForm() {
         // Idea is to eventually push to user profile
         router.push("/");
       }
-    } catch (error: any) {
-      if (error.response?.status === 409) {
-        notifications.show({
-          title: "Signup Failed!",
-          message: "A user with this email or username already exists",
-          color: "red",
-        });
-      } else {
-        notifications.show({
-          title: "Signup Error",
-          message: "Something went wrong. Please try again.",
-          color: "red",
-        });
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 409) {
+          notifications.show({
+            title: "Signup Failed!",
+            message: "A user with this email or username already exists",
+            color: "red",
+          });
+        } else {
+          notifications.show({
+            title: "Signup Error",
+            message: "Something went wrong. Please try again.",
+            color: "red",
+          });
+        }
       }
     }
   };

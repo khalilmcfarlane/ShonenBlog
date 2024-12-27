@@ -1,7 +1,7 @@
 import { logoutSession } from "@/utils/sessionManagement";
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST() {
   try {
     console.log("Logging out of session...");
     await logoutSession();

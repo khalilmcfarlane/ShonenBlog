@@ -67,35 +67,36 @@ export function PostForm() {
         //router.push(`/posts/${id}`);
         router.push("/");
       }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      if (error.response?.status === 401) {
-        notifications.show({
-          title: "Failed to create post",
-          message: "Please login before creating a post",
-          color: "red",
-        });
-      } else if (error.response?.status === 400) {
-        notifications.show({
-          title: "Failed to create post",
-          message: "A title and content are required!",
-          color: "red",
-        });
-      } else if (error.response?.status === 404) {
-        notifications.show({
-          title: "Failed to create post",
-          message: "User not found",
-          color: "red",
-        });
-      } else {
-        notifications.show({
-          title: "Post creation Error",
-          message: "Something went wrong. Please try again.",
-          color: "red",
-        });
-      }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          notifications.show({
+            title: "Failed to create post",
+            message: "Please login before creating a post",
+            color: "red",
+          });
+        } else if (error.response?.status === 400) {
+          notifications.show({
+            title: "Failed to create post",
+            message: "A title and content are required!",
+            color: "red",
+          });
+        } else if (error.response?.status === 404) {
+          notifications.show({
+            title: "Failed to create post",
+            message: "User not found",
+            color: "red",
+          });
+        } else {
+          notifications.show({
+            title: "Post creation Error",
+            message: "Something went wrong. Please try again.",
+            color: "red",
+          });
+        }
 
-      console.error(error);
+        console.error(error);
+      }
     }
   };
 

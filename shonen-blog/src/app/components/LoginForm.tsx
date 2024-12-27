@@ -25,25 +25,27 @@ export default function LoginForm() {
       const response = await axios.post("/api/login", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      
+
       if (response.status == 200) {
-        // Go to User profile
-        // profile/${values.username
+        // Go to User profile eventually
+        // profile/${values.username}
         router.push(`/`);
       }
-    } catch (error: any) {
-      if (error.response?.status === 404) {
-        notifications.show({
-          title: "Login Failed!",
-          message: "This user doesn't exist!",
-          color: "red",
-        });
-      } else {
-        notifications.show({
-          title: "Login Error",
-          message: "Something went wrong. Please try again.",
-          color: "red",
-        });
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 404) {
+          notifications.show({
+            title: "Login Failed!",
+            message: "This user doesn't exist!",
+            color: "red",
+          });
+        } else {
+          notifications.show({
+            title: "Login Error",
+            message: "Something went wrong. Please try again.",
+            color: "red",
+          });
+        }
       }
     }
   };
