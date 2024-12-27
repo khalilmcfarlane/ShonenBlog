@@ -1,7 +1,7 @@
 //import { getSession } from "next-auth/react";
 import { NextResponse } from "next/server";
 import { prisma } from "@/db";
-import type { User } from "prisma/prisma-client";
+import type { User } from "@prisma/client";
 import { getSession } from "@/utils/sessionManagement";
 import { uploadImageToS3 } from "@/utils/fileUploader";
 
