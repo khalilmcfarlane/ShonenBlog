@@ -12,7 +12,7 @@ export default async function ProfileDetails({ params }: Props) {
   const posts = await getAllPostsFromUsername(params.username);
   return (
     <div className={layoutStyles.mainContent}>
-      <h1>All of your posts</h1>
+      <h1>All of {params.username}&apos;s posts</h1>
       <div>
         <PostGrid posts={posts} />
       </div>

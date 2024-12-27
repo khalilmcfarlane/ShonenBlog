@@ -10,7 +10,7 @@ export async function getUserFromUsername(username: string): Promise<User | null
         },
         include: {
         posts: {
-            select: { title: true, content: true },
+            select: { title: true, content: true, image: true, id: true },
         },
         },
     });

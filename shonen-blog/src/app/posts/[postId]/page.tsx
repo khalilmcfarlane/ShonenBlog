@@ -4,6 +4,7 @@ import { Card, Center, AspectRatio, Image, Text } from "@mantine/core";
 import { notFound } from "next/navigation";
 //import { prisma } from "@/db"
 import { getPostbyId } from "@/db/queries/postSqlQueries";
+import Link from "next/link";
 
 interface Props {
   params: {
@@ -22,9 +23,11 @@ export default async function Posts({ params }: Props) {
       <Text className={classes.title} mt={5} size="xl">
         {post.title}
       </Text>
-      <Text c="dimmed" size="l" tt="uppercase" fw={700} mt="md">
-        {post?.author?.username}
-      </Text>
+      <Link href={`/profile/${post?.author?.username}`}>
+        <Text c="dimmed" size="l" tt="uppercase" fw={700} mt="md">
+          {post?.author?.username}
+        </Text>
+      </Link>
       <AspectRatio ratio={16 / 9}>
         <Image src={post.image} alt={post.title} />
       </AspectRatio>
