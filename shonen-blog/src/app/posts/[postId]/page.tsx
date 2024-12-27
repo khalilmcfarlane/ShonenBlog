@@ -1,6 +1,5 @@
-import layoutStyles from "../../css/Layout.module.css";
 import classes from "../../css/PostGrid.module.css";
-import { Card, Center, AspectRatio, Image, Text } from "@mantine/core";
+import { Card, AspectRatio, Image, Text } from "@mantine/core";
 import { notFound } from "next/navigation";
 //import { prisma } from "@/db"
 import { getPostbyId } from "@/db/queries/postSqlQueries";
