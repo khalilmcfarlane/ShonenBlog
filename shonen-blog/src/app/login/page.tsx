@@ -1,6 +1,8 @@
 import layoutStyles from "../css/Layout.module.css";
 
 import LoginForm from "../components/LoginForm";
+import { Title } from "@mantine/core";
+
 /*
 import {
     TextInput,
@@ -20,7 +22,7 @@ import {
 export default function LoginPage() {
   return (
     <div className={layoutStyles.mainContent}>
-      <h1>Login</h1>
+      <Title ta={"center"}>Login</Title>
       <LoginForm />
     </div>
     /*

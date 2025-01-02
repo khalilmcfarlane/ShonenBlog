@@ -7,8 +7,8 @@ import { Title } from "@mantine/core";
 export default function CreatePost() {
   return (
     <>
-      <Title>Create Post</Title>
       <div className={layoutStyles.mainContent}>
+        <Title ta={"center"}>Create Post</Title>
         <PostForm />
       </div>
     </>

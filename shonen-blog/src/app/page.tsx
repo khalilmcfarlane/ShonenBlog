@@ -4,6 +4,7 @@ import layoutStyles from "./css/Layout.module.css";
 
 import { getPosts } from "@/db/queries/postSqlQueries";
 import { PostGrid } from "./components/PostGrid";
+import { Title } from "@mantine/core";
 
 export default async function Home() {
   const posts = await getPosts();
@@ -12,7 +13,7 @@ export default async function Home() {
   return (
     <main className={`${styles.main} ${layoutStyles.mainContent}`}>
       <div className={styles.page}>
-        <h2>Recent Posts</h2>
+        <Title>Recent Posts</Title>
         <div>
           <PostGrid posts={posts} />
         </div>

@@ -11,7 +11,7 @@ import {
   IconLogin,
   IconLogout,
 } from "@tabler/icons-react";
-import { Code, Group } from "@mantine/core";
+import { Group, Title } from "@mantine/core";
 import Link from "next/link";
 import classes from "../css/NavbarSimple.module.css";
 import { JWTPayload } from "jose";
@@ -91,7 +91,7 @@ export function NavbarSimple() {
     <nav className={classes.navbar}>
       <div className={classes.navbarMain}>
         <Group className={classes.header} justify="space-between">
-          <Code fw={700}>ShonenBlog</Code>
+          <Title>ShonenBlog</Title>
         </Group>
         {links}
       </div>
