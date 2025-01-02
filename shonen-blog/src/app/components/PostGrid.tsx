@@ -6,11 +6,12 @@ import {
   AspectRatio,
   Image,
 } from "@mantine/core";
-import type { Post } from "prisma/prisma-client";
+//import type { Post, User } from "prisma/prisma-client";
 import classes from "../css/PostGrid.module.css";
+import { PostWithAuthor } from "@/db/queries/postSqlQueries";
 
-interface PostsProps {
-  posts: Post[];
+export interface PostsProps {
+  posts: PostWithAuthor[];
 }
 
 export function PostGrid({ posts }: PostsProps) {
@@ -27,7 +28,7 @@ export function PostGrid({ posts }: PostsProps) {
         <Image src={post.image} alt={post.title} />
       </AspectRatio>
       <Text c="dimmed" size="xs" tt="uppercase" fw={700} mt="md">
-        {post?.author?.username}
+        {post?.author?.username || "Unknown Author"}
       </Text>
       <Text className={classes.title} mt={5}>
         {post.title}

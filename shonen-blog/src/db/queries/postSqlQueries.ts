@@ -1,8 +1,25 @@
-import type { Post } from "prisma/prisma-client";
+import { Post, Prisma } from "prisma/prisma-client";
 import { prisma } from "@/db";
 import { notFound } from "next/navigation";
 
-export async function getPosts(): Promise<Post[]> {
+/*
+export type PostWithAuthor = Prisma.PostGetPayload<{
+  include: {
+    author: {
+      select: { username: true };
+    };
+  };
+}>;
+*/
+export type PostWithAuthor = Partial<Post> & {
+  author: { username: string } | null;
+};
+
+export type PostImage = Prisma.PostGetPayload<{
+  select: { title: true; content: true; image: true; id: true };
+}>;
+
+export async function getPosts(): Promise<PostWithAuthor[]> {
   const posts = await prisma.post.findMany({
     orderBy: [
       {
@@ -18,7 +35,9 @@ export async function getPosts(): Promise<Post[]> {
 
   return posts;
 }
-export async function getPostbyId(postId: string): Promise<Post | null> {
+export async function getPostbyId(
+  postId: string
+): Promise<PostWithAuthor | null> {
   const post = await prisma.post.findUnique({
     where: {
       id: postId,
