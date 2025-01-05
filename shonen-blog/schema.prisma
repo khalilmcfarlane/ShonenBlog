@@ -9,27 +9,41 @@ datasource db {
 }
 
 model Post {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   title     String
   content   String?
   image     String
-  published Boolean  @default(false)
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @default(now())
+  published Boolean   @default(false)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @default(now())
   authorId  String?
-  author    User?    @relation(fields: [authorId], references: [id])
+  author    User?     @relation(fields: [authorId], references: [id])
+  comments  Comment[]
 }
 
 model User {
-  id        String   @id @default(cuid())
-  name      String?  
-  email     String?  @unique
-  username  String   @unique
+  id        String    @id @default(cuid())
+  name      String?
+  email     String?   @unique
+  username  String    @unique
   password  String
   image     String?
-  createdAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime  @default(now()) @map("created_at")
   posts     Post[]
+  comments  Comment[]
 
   @@map("users")
 }
 
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt
+  postId    String
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
+
+  @@map("comments")
+}
