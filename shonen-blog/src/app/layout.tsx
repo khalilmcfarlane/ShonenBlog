@@ -4,6 +4,7 @@ import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
+import { Analytics } from "@vercel/analytics/react";
 import { NavbarSimple } from "./components/Navbar";
 import layoutStyles from "./css/Layout.module.css";
 
@@ -28,6 +29,7 @@ export default function RootLayout({
           <div className={layoutStyles.container}>
             <NavbarSimple />
             {children}
+            <Analytics />
           </div>
         </MantineProvider>
       </body>
