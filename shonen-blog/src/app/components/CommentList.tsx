@@ -8,9 +8,14 @@ import { notifications } from "@mantine/notifications";
 
 import { CommentProps } from "./CommentForm";
 import { formatDate } from "@/utils/dateFormatter";
+import { Comment } from "prisma/prisma-client";
+
+export type CommentWithAuthor = Partial<Comment> & {
+  author: { username: string; image?: string | null } | null;
+};
 
 export default function CommentList({ postId }: CommentProps) {
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState<CommentWithAuthor[]>([]);
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -25,7 +30,6 @@ export default function CommentList({ postId }: CommentProps) {
           message: "Please login before creating a post",
           color: "red",
         });
-        
       }
     };
     fetchComments();
@@ -37,7 +41,11 @@ export default function CommentList({ postId }: CommentProps) {
         <>
           <div key={comment.id}>
             <Group>
-              <Avatar src={comment.author?.image} alt="" radius="xl" />
+              <Avatar
+                src={comment.author?.image || undefined}
+                alt=""
+                radius="xl"
+              />
               <div>
                 <Text fw={700} size="sm">
                   {comment?.author?.username}
